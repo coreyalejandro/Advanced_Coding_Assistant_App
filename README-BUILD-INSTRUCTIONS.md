@@ -9,16 +9,21 @@ Below are deterministic, **production-grade** build paths. Choose ONE.
 
 ## Option A — Local build (macOS / Linux)
 
-**Requirements**
+### Requirements
+
 - Node.js 20.x or newer (`node -v` should be >= 20.0.0)
 - PNPM (preferred) or NPM
 
-**Steps**
+### Steps
+
 1. Open Terminal and navigate to the project:
+
    ```bash
    cd "/mnt/data/advanced_coding_assistant_app"
    ```
+
 2. Install dependencies (PNPM preferred, falls back to NPM):
+
    ```bash
    # Preferred
    corepack enable
@@ -28,29 +33,36 @@ Below are deterministic, **production-grade** build paths. Choose ONE.
    # If you don't want PNPM, use NPM:
    # npm ci
    ```
+
 3. Build the production bundle:
+
    ```bash
    pnpm build
    # or: npm run build
    ```
+
 4. Preview the production build locally (optional):
+
    ```bash
    pnpm dlx serve -s dist -l 4173
    # then open http://localhost:4173
    ```
 
-**Output**
+### Output
+
 - The production bundle will be at: `dist/`
 
 ---
 
 ## Option B — Local build (Windows PowerShell)
 
-**Requirements**
+### Requirements (Windows)
+
 - Node.js 20.x or newer
 - PNPM (preferred) or NPM
 
-**Steps (PowerShell)**
+### Steps (PowerShell)
+
 ```powershell
 cd "/mnt/data/advanced_coding_assistant_app"
 corepack enable
@@ -65,13 +77,15 @@ pnpm dlx serve -s dist -l 4173
 
 ## Option C — Dockerized build + NGINX production image
 
-**Build the image**
+### Build the image
+
 ```bash
 cd "/mnt/data/advanced_coding_assistant_app"
 docker build -t advanced-coding-assistant:prod -f Dockerfile .
 ```
 
-**Run the container**
+### Run the container
+
 ```bash
 docker run --rm -p 8080:80 advanced-coding-assistant:prod
 # open http://localhost:8080
@@ -96,11 +110,14 @@ docker run --rm -p 8080:80 advanced-coding-assistant:prod
 ## Troubleshooting
 
 - If install fails, ensure Node 20+ and clear your cache:
+
   ```bash
   pnpm store prune && pnpm install
   # or: npm cache verify && rm -rf node_modules package-lock.json && npm ci
   ```
+
 - If Vite fails with a plugin error, remove `.vite/` and rebuild:
+
   ```bash
   rm -rf node_modules .vite dist && pnpm install && pnpm build
   ```
